@@ -65,8 +65,8 @@ module.exports = {
   },
   selectCategory: async (req, res) => {
     try {
-      const { name } = req.params;
-      const item = await Item.find({ categoryId: name });
+      const { id } = req.params;
+      const item = await Item.find({ categoryId: id });
       res.status(200).json({
         item,
       });

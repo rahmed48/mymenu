@@ -4,7 +4,7 @@ const apiController = require("../controllers/apiController");
 
 router.get("/item", apiController.item);
 router.get("/detail-item/:id", apiController.detailItem);
-router.get("/select-category/:name", apiController.selectCategory);
+router.get("/select-category/:id", apiController.selectCategory);
 router.get("/toko", apiController.toko);
 router.get("/home", apiController.home);
 router.get("/pesanan", apiController.pesanan);
