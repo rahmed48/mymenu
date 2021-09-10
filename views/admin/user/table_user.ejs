@@ -1,0 +1,56 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#addModal"
+    >
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        class="table table-bordered"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+      >
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let i = 0; i < user.length; i++) { %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= user[i].name %></td>
+            <td><%= user[i].role %></td>
+            <td><%= user[i].status %></td>
+            <td>
+              <% if (user[i].status == "Non Aktif"){ %>
+              <form
+                action="/admin/user/<%=user[i].id%>?_method=DELETE"
+                method="POST"
+              >
+                <button type="submit" class="btn btn-danger btn-circle btn-sm">
+                  <i class="fas fa-trash"></i>
+                </button>
+                <% } else if (user[i].status == "Aktif"){ %>
+                <i class="fa fa-minus" aria-hidden="true"></i> <% } %>
+              </form>
+            </td>
+          </tr>
+          <%}%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

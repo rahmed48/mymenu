@@ -1,0 +1,94 @@
+<ul
+  class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+  id="accordionSidebar"
+>
+  <!-- Sidebar - Brand -->
+  <a
+    class="sidebar-brand d-flex align-items-center justify-content-center"
+    href="/admin/dashboard"
+  >
+    <div class="sidebar-brand-icon rotate-n-15">
+      <i class="fas fa-laugh-wink"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3">My Menu</div>
+  </a>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0" />
+  <% if(users.role == "Owner") {%>
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/dashboard">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a
+    >
+  </li>
+  <!-- Divider -->
+  <hr class="sidebar-divider" />
+  <!-- Heading -->
+  <div class="sidebar-heading">Menu</div>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/category">
+      <i class="fas fa-fw fa-list-alt"></i>
+      <span>Category</span></a
+    >
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/item">
+      <i class="fas fa-fw fa-hotel"></i>
+      <span>Item</span></a
+    >
+  </li>
+
+  <hr class="sidebar-divider" />
+  <div class="sidebar-heading">Toko</div>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/toko">
+      <i class="fas fa-fw fa-list-alt"></i>
+      <span>Setting Toko</span></a
+    >
+  </li>
+
+  <hr class="sidebar-divider" />
+  <div class="sidebar-heading">User</div>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/user">
+      <i class="fas fa-fw fa-list-alt"></i>
+      <span>Setting User</span></a
+    >
+  </li>
+
+  <%}%>
+
+  <hr class="sidebar-divider" />
+  <div class="sidebar-heading">Stok</div>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/stok">
+      <i class="fas fa-fw fa-list-alt"></i>
+      <span>Kelola Stok Menu</span></a
+    >
+  </li>
+
+
+  <hr class="sidebar-divider" />
+  <div class="sidebar-heading">Pesanan</div>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/pesanan">
+      <i class="fas fa-fw fa-list-alt"></i>
+      <span>Pesanan Berlangsung</span></a
+    >
+  </li>
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block" />
+
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+</ul>

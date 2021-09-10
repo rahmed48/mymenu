@@ -1,0 +1,70 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#addModal"
+    >
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        class="table table-bordered"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+      >
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Kategori</th>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Gambar</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let i = 0; i < item.length; i++) { %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= item[i].categoryId.name %></td>
+            <td><%= item[i].nameItem %></td>
+            <td><%= item[i].harga %></td>
+            <td>
+              <img
+                src="https://e-menus.herokuapp.com/<%= item[i].imageUrl %>"
+                alt="imageUrl"
+                height="150px"
+              />
+            </td>
+            <td>
+              <form
+                action="/admin/item/<%=item[i].id%>?_method=DELETE"
+                method="POST"
+              >
+                <a
+                  href="javascript:void()"
+                  type="button"
+                  class="btn btn-warning btn-circle btn-sm button-update"
+                  data-id="<%= item[i].id %>"
+                  data-name="<%= item[i].nameItem %>"
+                  data-harga="<%= item[i].harga %>"
+                  ><i class="fas fa-edit"></i
+                ></a>
+                <button type="submit" class="btn btn-danger btn-circle btn-sm">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          <%}%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
