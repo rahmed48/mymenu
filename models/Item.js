@@ -10,6 +10,10 @@ const itemSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  desc: {
+    type: String,
+    required: true,
+  },
   stok: {
     type: String,
     default: "Ada",

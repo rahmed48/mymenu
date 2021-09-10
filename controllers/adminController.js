@@ -181,12 +181,13 @@ module.exports = {
 
   addItem: async (req, res) => {
     try {
-      const { categoryId, nameItem, harga } = req.body;
+      const { categoryId, nameItem, harga, desc } = req.body;
       const category = await Category.findOne({ _id: categoryId });
       const newItem = {
         categoryId,
         nameItem,
         harga,
+        desc,
         imageUrl: `images/${req.file.filename}`,
       };
       const item = await Item.create(newItem);
