@@ -110,7 +110,7 @@ module.exports = {
     const newOrder = {
       invoice,
       tanggal,
-      item: {},
+      item: [],
     };
 
     const order = await Order.create(newOrder);
