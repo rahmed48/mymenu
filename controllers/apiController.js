@@ -52,28 +52,28 @@ module.exports = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
-  detailItem: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const item = await Item.findOne({ _id: id });
-      res.status(200).json({
-        item,
-      });
-    } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
-    }
-  },
-  selectCategory: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const item = await Item.find({ categoryId: id });
-      res.status(200).json({
-        item,
-      });
-    } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
-    }
-  },
+  // detailItem: async (req, res) => {
+  //   try {
+  //     const { id } = req.params;
+  //     const item = await Item.findOne({ _id: id });
+  //     res.status(200).json({
+  //       item,
+  //     });
+  //   } catch (error) {
+  //     res.status(500).json({ message: "Internal server error" });
+  //   }
+  // },
+  // selectCategory: async (req, res) => {
+  //   try {
+  //     const { id } = req.params;
+  //     const item = await Item.find({ categoryId: id });
+  //     res.status(200).json({
+  //       item,
+  //     });
+  //   } catch (error) {
+  //     res.status(500).json({ message: "Internal server error" });
+  //   }
+  // },
   // pesan: async (req, res) => {
   //   try {
   //     const pesanan = await Pesanan.find();
@@ -86,27 +86,26 @@ module.exports = {
   //   }
   // },
 
-  pesanan: async (req, res) => {
-    try {
-      // const cart = await Cart.find();
-      const pesanan = await Pesanan.find().populate({
-        path: "cartId",
-        select: "id qty itemId",
-        populate: {
-          path: "itemId",
-          select: "id harga nameItem",
-        },
-      });
-      res.status(200).json({
-        pesanan,
-      });
-    } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
-    }
-  },
+  // pesanan: async (req, res) => {
+  //   try {
+  //     // const cart = await Cart.find();
+  //     const pesanan = await Pesanan.find().populate({
+  //       path: "cartId",
+  //       select: "id qty itemId",
+  //       populate: {
+  //         path: "itemId",
+  //         select: "id harga nameItem",
+  //       },
+  //     });
+  //     res.status(200).json({
+  //       pesanan,
+  //     });
+  //   } catch (error) {
+  //     res.status(500).json({ message: "Internal server error" });
+  //   }
+  // },
 
   cart: async (req, res) => {
-    // const item = await Item.findOne({ _id: idItem });
     const newOrder = {
       invoice,
       tanggal,
