@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const categorySchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema({
   invoice: {
     type: String,
     unique: true,
@@ -15,4 +15,4 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Category", categorySchema);
+module.exports = mongoose.model("Order", orderSchema);
