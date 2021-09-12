@@ -8,7 +8,7 @@ router.get("/select-category/:id", apiController.selectCategory);
 router.get("/toko", apiController.toko);
 router.get("/home", apiController.home);
 router.get("/pesanan", apiController.pesanan);
+router.post("/cart", apiController.cart);
 // router.get("/detail-page/:id", apiController.detailPage);
-// router.post("/booking-page", upload, apiController.bookingPage);
 
 module.exports = router;
