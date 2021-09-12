@@ -107,15 +107,15 @@ module.exports = {
   // },
 
   cart: async (req, res) => {
-    const item = req.body;
-    const invoice = Math.floor(1000000 + Math.random() * 9000000);
-    const today = new Date();
-    const tanggal =
-      today.getFullYear() +
-      "-" +
-      (today.getMonth() + 1) +
-      "-" +
-      today.getDate();
+    const { item, tanggal, invoice } = req.body;
+    // const invoice = Math.floor(1000000 + Math.random() * 9000000);
+    // const today = new Date();
+    // const tanggal =
+    //   today.getFullYear() +
+    //   "-" +
+    //   (today.getMonth() + 1) +
+    //   "-" +
+    //   today.getDate();
 
     const newOrder = {
       invoice,
