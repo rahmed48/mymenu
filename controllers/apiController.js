@@ -104,4 +104,17 @@ module.exports = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
+
+  cart: async (req, res) => {
+    // const item = await Item.findOne({ _id: idItem });
+    const newOrder = {
+      invoice,
+      tanggal,
+      item: {},
+    };
+
+    const order = await Order.create(newOrder);
+
+    res.status(201).json({ message: "Success Order", order });
+  },
 };
