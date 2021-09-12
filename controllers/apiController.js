@@ -107,8 +107,8 @@ module.exports = {
   // },
 
   cart: async (req, res) => {
-    const { item, tanggal, invoice } = req.body;
-    // const invoice = Math.floor(1000000 + Math.random() * 9000000);
+    // const { item, tanggal, invoice } = req.body;
+    const invoice = Math.floor(1000000 + Math.random() * 9000000);
     // const today = new Date();
     // const tanggal =
     //   today.getFullYear() +
@@ -119,8 +119,8 @@ module.exports = {
 
     const newOrder = {
       invoice,
-      tanggal,
-      item,
+      // tanggal,
+      // item,
     };
 
     const order = await Order.create(newOrder);
