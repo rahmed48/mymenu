@@ -1,0 +1,37 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <!-- Button trigger modal -->
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        class="table table-bordered"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+      >
+        <thead>
+          <tr>
+            <th>Invoice</th>
+            <th>Nama</th>
+            <th>Jumlah</th>
+            <th>Kategori</th>
+            <th>Tanggal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let i = 0; i < order.length; i++) { %> <% for (let x = 0; x <
+          order[i].item.length; x++) { %>
+          <tr>
+            <td><%= order[i].invoice %></td>
+            <td><%= order[i].item[x].nama %></td>
+            <td><%= order[i].item[x].jumlah %></td>
+            <td><%= order[i].item[x].kategori %></td>
+            <td><%= order[i].tanggal %></td>
+          </tr>
+          <%}%> <%}%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

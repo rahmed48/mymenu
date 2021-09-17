@@ -5,8 +5,7 @@ const path = require("path");
 const Toko = require("../models/Toko");
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
-const Pesanan = require("../models/Pesanan");
-const Cart = require("../models/Cart");
+const Order = require("../models/Order");
 
 module.exports = {
   viewSignin: async (req, res) => {
@@ -388,87 +387,20 @@ module.exports = {
   },
   //  <---------- MODULE ITEM ---------->
 
-  // bookingPage: async (req, res) => {
-  //   const {
-  //     id,
-  //     nameItem,
-  //     // price,
-  //     bookingStartDate,
-  //     bookingEndDate,
-  //     firstName,
-  //     lastName,
-  //     email,
-  //     phoneNumber,
-  //     accountHolder,
-  //     bankFrom,
-  //   } = req.body;
-
-  //   if (!req.file) {
-  //     return res.status(404).json({ message: "Image not found" });
-  //   }
-
-  //   console.log(idItem);
-
-  //   if (
-  //     idItem === undefined ||
-  //     duration === undefined ||
-  //     // price === undefined ||
-  //     bookingStartDate === undefined ||
-  //     bookingEndDate === undefined ||
-  //     firstName === undefined ||
-  //     lastName === undefined ||
-  //     email === undefined ||
-  //     phoneNumber === undefined ||
-  //     accountHolder === undefined ||
-  //     bankFrom === undefined
-  //   ) {
-  //     res.status(404).json({ message: "Lengkapi semua field" });
-  //   }
-
-  //   const item = await Item.findOne({ _id: idItem });
-
-  //   if (!item) {
-  //     return res.status(404).json({ message: "Item not found" });
-  //   }
-
-  //   item.sumBooking += 1;
-
-  //   await item.save();
-
-  //   let total = item.price * duration;
-  //   let tax = total * 0.1;
-
-  //   const invoice = Math.floor(1000000 + Math.random() * 9000000);
-
-  //   const member = await Member.create({
-  //     firstName,
-  //     lastName,
-  //     email,
-  //     phoneNumber,
-  //   });
-
-  //   const newBooking = {
-  //     invoice,
-  //     bookingStartDate,
-  //     bookingEndDate,
-  //     total: (total += tax),
-  //     itemId: {
-  //       _id: item.id,
-  //       title: item.title,
-  //       price: item.price,
-  //       duration: duration,
-  //     },
-
-  //     memberId: member.id,
-  //     payments: {
-  //       proofPayment: `images/${req.file.filename}`,
-  //       bankFrom: bankFrom,
-  //       accountHolder: accountHolder,
-  //     },
-  //   };
-
-  //   const booking = await Booking.create(newBooking);
-
-  //   res.status(201).json({ message: "Success Booking", booking });
-  // },
+  viewOrder: async (req, res) => {
+    try {
+      const order = await Order.find();
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+      res.render("admin/histori/view_histori", {
+        order,
+        alert,
+        title: "My Menu | Hisotry",
+        users: req.session.user,
+      });
+    } catch (error) {
+      res.redirect("/admin/histori");
+    }
+  },
 };

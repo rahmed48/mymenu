@@ -38,7 +38,8 @@ router.get("/stok", adminController.viewStok);
 router.delete("/stok/ada/:id", adminController.setStokAda);
 router.delete("/stok/kosong/:id", adminController.setStokKosong);
 
-// ENDPOINT STOK
+// ENDPOINT HISTORY
+router.get("/histori", adminController.viewOrder);
 // router.get("/pesanan", adminController.viewPesanan);
 // router.delete("/stok/ada/:id", adminController.setStokAda);
 // router.delete("/stok/kosong/:id", adminController.setStokKosong);
