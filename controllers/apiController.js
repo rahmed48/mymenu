@@ -79,4 +79,17 @@ module.exports = {
 
     res.status(201).json({ message: "Success Booking", booking });
   },
+
+  orders: async (req, res) => {
+    try {
+      const order = await Order.find();
+
+      res.status(200).json({
+        order,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
 };
