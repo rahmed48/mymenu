@@ -2,11 +2,13 @@ const Item = require("../models/Item");
 const Toko = require("../models/Toko");
 const Category = require("../models/Category");
 const Order = require("../models/Order");
+const Tax = require("../models/Pajak");
 
 module.exports = {
   home: async (req, res) => {
     try {
       const toko = await Toko.find();
+      const tax = await Tax.find();
       const allItem = await Item.find().populate({
         path: "categoryId",
         select: "name",
@@ -19,6 +21,7 @@ module.exports = {
         allItem,
         listCategory,
         order,
+        tax,
       });
     } catch (error) {
       console.log(error);
@@ -52,17 +55,4 @@ module.exports = {
 
     res.status(201).json({ message: "Success Booking", booking });
   },
-
-  // orders: async (req, res) => {
-  //   try {
-  //     const order = await Order.find();
-
-  //     res.status(200).json({
-  //       order,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //     res.status(500).json({ message: "Internal server error" });
-  //   }
-  // },
 };
