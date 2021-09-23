@@ -3,10 +3,8 @@ const apiController = require("../controllers/apiController");
 const { upload } = require("../middlewares/multer");
 
 router.get("/home", apiController.home);
-router.get("/toko", apiController.toko);
-router.get("/item", apiController.item);
-router.get("/orders", apiController.orders);
 router.post("/cart", apiController.cart);
+// router.get("/orders", apiController.orders);
 // router.get("/pesanan", apiController.pesanan);
 // router.get("/detail-item/:id", apiController.detailItem);
 // router.get("/select-category/:id", apiController.selectCategory);

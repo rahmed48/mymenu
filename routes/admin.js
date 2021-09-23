@@ -21,6 +21,10 @@ router.delete("/category/:id", adminController.deleteCategory);
 router.get("/toko", adminController.viewToko);
 router.put("/toko", adminController.editToko);
 
+// // ENDPOINT PAJAK
+router.get("/pajak", adminController.viewPajak);
+router.put("/pajak", adminController.editPajak);
+
 // ENDPOINT ITEM
 router.get("/item", adminController.viewItem);
 router.post("/item", upload, adminController.addItem);

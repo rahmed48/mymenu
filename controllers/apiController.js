@@ -7,51 +7,24 @@ module.exports = {
   home: async (req, res) => {
     try {
       const toko = await Toko.find();
-      const item = await Item.find();
-      const listCategory = await Category.find().select("_id name");
-      const category = await Category.find().populate({
-        path: "itemId",
-      });
-
-      res.status(200).json({
-        toko,
-        item,
-        category,
-        listCategory,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  },
-  toko: async (req, res) => {
-    try {
-      const toko = await Toko.find();
-
-      res.status(200).json({
-        toko,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  },
-  item: async (req, res) => {
-    try {
-      const item = await Item.find().populate({
+      const allItem = await Item.find().populate({
         path: "categoryId",
         select: "name",
       });
+      const listCategory = await Category.find().select("_id name");
+      const order = await Order.find();
 
       res.status(200).json({
-        item,
+        toko,
+        allItem,
+        listCategory,
+        order,
       });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });
     }
   },
-
   cart: async (req, res) => {
     const { item } = req.body;
     console.log(item);
@@ -60,7 +33,7 @@ module.exports = {
       res.status(404).json({ message: "Lengkapi semua field" });
     }
 
-    const invoice = Math.floor(1000000 + Math.random() * 9000000);
+    const invoice = Math.floor(1000 + Math.random() * 9000);
     const today = new Date();
     const tanggal =
       today.getFullYear() +
@@ -80,16 +53,16 @@ module.exports = {
     res.status(201).json({ message: "Success Booking", booking });
   },
 
-  orders: async (req, res) => {
-    try {
-      const order = await Order.find();
+  // orders: async (req, res) => {
+  //   try {
+  //     const order = await Order.find();
 
-      res.status(200).json({
-        order,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  },
+  //     res.status(200).json({
+  //       order,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.status(500).json({ message: "Internal server error" });
+  //   }
+  // },
 };

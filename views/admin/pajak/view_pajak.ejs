@@ -1,0 +1,97 @@
+<% include ../../partials/header.ejs %> 
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       <% include ../../partials/sidebar.ejs %> 
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <% include ../../partials/navbar.ejs %> 
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <% include ../../partials/message.ejs %> 
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Pengaturan Pajak</h1>
+                    
+                    <% for (let i = 0; i < pajak.length; i++) { %>
+                    <div class="col-xl-12 col-md-12 mb-12">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-4">
+                                            Jumlah PPN</div>
+                                        <div class="h1 mb-0 font-weight-bold text-gray-800"><%= pajak[i].tax %> %</div>                                        
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-money-bill-wave fa-5x text-gray-600"></i>
+                                    </div>
+                                </div>                                                        
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-auto mt-3" id="nameToko">
+                        <form
+                action="/admin/pajak/<%=pajak[i].id%>?_method=DELETE"
+                method="POST"
+              >
+                        <a
+                        href="javascript:void();"
+                        type="button"
+                        class="btn btn-warning button-update"
+                        data-id="<%= pajak[i].id %>"
+                        data-name="<%= pajak[i].tax %>"
+                        >Edit Jumlah Pajak <i class="fas fa-edit"></i
+                            ></a>        
+                        </form>    
+                        </div>
+                        
+                        
+                    </div>
+                    <%}%>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <% include ../../partials/footer.ejs %> 
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <% include ../../partials/logout_modal.ejs %> 
+
+    <% include edit_modal %>
+   <% include ../../partials/js.ejs %> 
+   <script>
+    $('#nameToko').on('click','.button-update', function() {
+        let id = $(this).data('id');
+        let name = $(this).data('name');
+        $('#editModal').modal('show');
+        $('.id').val(id);
+        $('.name').val(name);
+    })
+</script>
+</body>
+
+</html>

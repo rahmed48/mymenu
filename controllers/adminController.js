@@ -6,6 +6,7 @@ const Toko = require("../models/Toko");
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 const Order = require("../models/Order");
+const Pajak = require("../models/Pajak");
 
 module.exports = {
   viewSignin: async (req, res) => {
@@ -403,4 +404,41 @@ module.exports = {
       res.redirect("/admin/histori");
     }
   },
+
+  //  <---------- MODULE PAJAK ---------->
+  viewPajak: async (req, res) => {
+    try {
+      const pajak = await Pajak.find();
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+      console.log("tax :", pajak);
+      res.render("admin/pajak/view_pajak", {
+        title: "My Menu | Pajak",
+        alert,
+        pajak,
+        users: req.session.user,
+      });
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/admin/pajak");
+    }
+  },
+  editPajak: async (req, res) => {
+    try {
+      const { id, tax } = req.body;
+      const pajak = await Pajak.findOne({ _id: id });
+      pajak.tax = tax;
+      await pajak.save();
+      req.flash("alertMessage", "Success Update Pajak");
+      req.flash("alertStatus", "success");
+      res.redirect("/admin/pajak");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/admin/pajak");
+    }
+  },
+  //  <---------- MODULE PAJAK ---------->
 };
