@@ -22,6 +22,10 @@ const itemSchema = new mongoose.Schema({
     type: ObjectId,
     ref: "Category",
   },
+  diskonId: {
+    type: ObjectId,
+    ref: "Diskon",
+  },
   imageUrl: {
     type: String,
   },

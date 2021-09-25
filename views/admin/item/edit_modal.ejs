@@ -20,7 +20,7 @@
         </button>
       </div>
       <form
-        action="/admin/item?_method=PUT"
+        action="/admin/item/<%= item.id %>?_method=PUT"
         method="POST"
         enctype="multipart/form-data"
       >
@@ -44,6 +44,32 @@
               placeholder="Enter Harga"
               required
             />
+          </div>
+
+          <div class="form-group">
+            <label for="name">Diskon</label>
+            <select class="form-control" name="diskonId">
+              <option value="">Diskon</option>
+              <% for(let i = 0 ; i < diskon.length ; i++) { %>
+              <option value="<%= diskon[i].id %>">
+                <%= diskon[i].nameDiskon %>
+              </option>
+              <% } %>
+            </select>
+            <span>Pilih Diskon Untuk Update</span>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Category</label>
+            <select class="form-control" name="categoryId">
+              <option value="">Category</option>
+              <% for(let i = 0 ; i < category.length ; i++) { %>
+              <option value="<%= category[i].id %>">
+                <%= category[i].name %>
+              </option>
+              <% } %>
+            </select>
+            <span>Pilih Kategori Untuk Update</span>
           </div>
           <div class="form-group">
             <label for="name">Image</label>

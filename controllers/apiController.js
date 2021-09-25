@@ -9,10 +9,15 @@ module.exports = {
     try {
       const toko = await Toko.find();
       const tax = await Tax.find();
-      const allItem = await Item.find().populate({
-        path: "categoryId",
-        select: "name",
-      });
+      const allItem = await Item.find()
+        .populate({
+          path: "categoryId",
+          select: "name",
+        })
+        .populate({
+          path: "diskonId",
+          select: "nameDiskon amount",
+        });
       const listCategory = await Category.find().select("_id name");
       const order = await Order.find();
 

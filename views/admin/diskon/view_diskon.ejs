@@ -22,10 +22,10 @@
                     <% include ../../partials/message.ejs %> 
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Category</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Diskon</h1>
 
 
-                    <% include table_category %> 
+                    <% include table_diskon %> 
                     
 
                 </div>
@@ -48,6 +48,7 @@
     </a>
 
     <!-- Logout Modal-->
+    
     <% include ../../partials/logout_modal.ejs %> 
 
     
@@ -58,10 +59,12 @@
     $('#dataTable').on('click','.button-update', function() {
         let id = $(this).data('id');
         let name = $(this).data('name');
-        // console.log(id + name);
+        let amount = $(this).data('amount');
+        
         $('#editModal').modal('show');
         $('.id').val(id);
         $('.name').val(name);
+        $('.amount').val(amount);
     })
 </script>
 </body>

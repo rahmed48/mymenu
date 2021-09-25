@@ -1,12 +1,13 @@
-const Category = require("../models/Category");
-const Item = require("../models/Item");
 const fs = require("fs-extra");
 const path = require("path");
+const Category = require("../models/Category");
+const Item = require("../models/Item");
 const Toko = require("../models/Toko");
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 const Order = require("../models/Order");
 const Pajak = require("../models/Pajak");
+const Diskon = require("../models/Diskon");
 
 module.exports = {
   viewSignin: async (req, res) => {
@@ -156,13 +157,82 @@ module.exports = {
   },
   //  <---------- MODULE CATEGORY ---------->
 
+  //  <---------- MODULE Diskon ---------->
+  viewDiskon: async (req, res) => {
+    try {
+      const diskon = await Diskon.find();
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+      // res.json(category);
+      res.render("admin/diskon/view_diskon", {
+        diskon,
+        alert,
+        title: "My Menu | Diskon",
+        users: req.session.user,
+      });
+    } catch (error) {
+      res.redirect("/admin/diskon");
+    }
+  },
+  addDiskon: async (req, res) => {
+    try {
+      const { nameDiskon, amount } = req.body;
+      await Diskon.create({ nameDiskon, amount });
+      req.flash("alertMessage", "Success Add Diskon");
+      req.flash("alertStatus", "success");
+      res.redirect("/admin/diskon");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/admin/diskon");
+    }
+  },
+  editDiskon: async (req, res) => {
+    try {
+      const { id, nameDiskon, amount } = req.body;
+      const diskon = await Diskon.findOne({ _id: id });
+      diskon.nameDiskon = nameDiskon;
+      diskon.amount = amount;
+      await diskon.save();
+      req.flash("alertMessage", "Success Update Diskon");
+      req.flash("alertStatus", "success");
+      res.redirect("/admin/diskon");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/admin/diskon");
+    }
+  },
+  deleteDiskon: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const diskon = await Diskon.findOne({ _id: id });
+      await diskon.remove();
+      req.flash("alertMessage", "Success Delete Diskon");
+      req.flash("alertStatus", "success");
+      res.redirect("/admin/diskon");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/admin/diskon");
+    }
+  },
+  //  <---------- MODULE Diskon ---------->
+
   //  <---------- MODULE ITEM ---------->
   viewItem: async (req, res) => {
     try {
-      const item = await Item.find().populate({
-        path: "categoryId",
-        select: "id name",
-      });
+      const item = await Item.find()
+        .populate({
+          path: "categoryId",
+          select: "id name",
+        })
+        .populate({
+          path: "diskonId",
+          select: "id nameDiskon amount",
+        });
+      const diskon = await Diskon.find();
       const category = await Category.find();
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
@@ -171,6 +241,7 @@ module.exports = {
         item,
         alert,
         category,
+        diskon,
         title: "My Menu | Item",
         users: req.session.user,
       });
@@ -181,10 +252,11 @@ module.exports = {
 
   addItem: async (req, res) => {
     try {
-      const { categoryId, nameItem, harga, desc } = req.body;
+      const { diskonId, categoryId, nameItem, harga, desc } = req.body;
       const category = await Category.findOne({ _id: categoryId });
       const newItem = {
         categoryId,
+        diskonId,
         nameItem,
         harga,
         desc,
@@ -205,11 +277,21 @@ module.exports = {
   },
   editItem: async (req, res) => {
     try {
-      const { id, nameItem, harga } = req.body;
-      const item = await Item.findOne({ _id: id });
+      const { id, categoryId, nameItem, harga, desc, diskonId } = req.body;
+      const item = await Item.findOne({ _id: id })
+        .populate({
+          path: "categoryId",
+          select: "id name",
+        })
+        .populate({
+          path: "diskonId",
+          select: "id nameDiskon amount",
+        });
       if (req.file == undefined) {
         item.nameItem = nameItem;
         item.harga = harga;
+        item.categoryId = categoryId;
+        item.diskonId = diskonId;
         await item.save();
         req.flash("alertMessage", "Success Update Item");
         req.flash("alertStatus", "success");
