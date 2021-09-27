@@ -1,0 +1,93 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/admin/item" method="POST" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Nama</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="nameItem"
+              placeholder="Masukkan Nama Menu"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="harga">Harga</label>
+            <input
+              type="number"
+              class="form-control"
+              id="harga"
+              name="harga"
+              placeholder="Masukkan Harga"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="harga">Deskripsi</label>
+            <input
+              type="string"
+              class="form-control"
+              id="desc"
+              name="desc"
+              placeholder="Masukkan Deskripsi"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Category</label>
+            <select class="form-control" name="categoryId">
+              <option value="">Category</option>
+              <% for(let i = 0 ; i < category.length ; i++) { %>
+              <option value="<%= category[i].id %>">
+                <%= category[i].name %>
+              </option>
+              <% } %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="name">Diskon</label>
+            <select class="form-control" name="diskonId">
+              <option value="">Diskon</option>
+              <% for(let i = 0 ; i < diskon.length ; i++) { %>
+              <option value="<%= diskon[i].id %>">
+                <%= diskon[i].nameDiskon %>
+              </option>
+              <% } %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="harga">Foto</label>
+            <input type="file" class="form-control" name="image" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

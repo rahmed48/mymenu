@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const Order = require("../models/Order");
 const Pajak = require("../models/Pajak");
 const Diskon = require("../models/Diskon");
+const Promo = require("../models/Promo");
 
 module.exports = {
   viewSignin: async (req, res) => {
@@ -156,6 +157,90 @@ module.exports = {
     }
   },
   //  <---------- MODULE CATEGORY ---------->
+
+  //  <---------- MODULE Promo ---------->
+  viewPromo: async (req, res) => {
+    try {
+      const promo = await Promo.find();
+      // const diskon = await Diskon.find();
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+      // res.json(category);
+      res.render("admin/promo/view_promo", {
+        promo,
+        alert,
+        title: "My Menu | Promo",
+        users: req.session.user,
+      });
+    } catch (error) {
+      res.redirect("/admin/promo");
+    }
+  },
+
+  viewDetailPromo: async (req, res) => {
+    try {
+      const { promoId } = req.params;
+      const item = await Item.find();
+      const promo = await Promo.find({ _id: promoId }).populate({
+        path: "itemId",
+      });
+      // const diskon = await Diskon.find();
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+      // res.json(category);
+      res.render("admin/promo/detail_promo/view_detail_promo", {
+        item,
+        promo,
+        alert,
+        title: "My Menu | Detail Promo",
+        users: req.session.user,
+      });
+    } catch (error) {
+      res.redirect("/admin/promo");
+    }
+  },
+  addItemtoPromo: async (req, res) => {
+    try {
+      const { promoId } = req.params;
+      const { itemId } = req.body;
+      const promo = await Promo.findOne({ _id: promoId });
+      promo.itemId.push({ _id: itemId });
+      await promo.save();
+      req.flash("alertMessage", "Success Add Feature");
+      req.flash("alertStatus", "success");
+      res.redirect(`/admin/promo`);
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect(`/admin/promo`);
+    }
+  },
+
+  deleteItemtoPromo: async (req, res) => {
+    const { id, itemId } = req.params;
+    try {
+      const item = await Item.findOne({ _id: itemId });
+      const promo = await Promo.findOne({ _id: id }).populate("itemId");
+      for (let i = 0; i < promo.itemId.length; i++) {
+        if (promo.itemId[i]._id.toString() === item._id.toString()) {
+          // console.log('harusnya kehapus');
+          promo.itemId.pull({ _id: itemId });
+          await promo.save();
+        }
+      }
+      req.flash("alertMessage", "Success Delete Item From Promo");
+      req.flash("alertStatus", "success");
+      res.redirect(`/admin/promo`);
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect(`/admin/promo`);
+    }
+  },
+
+  //  <---------- MODULE Promo ---------->
 
   //  <---------- MODULE Diskon ---------->
   viewDiskon: async (req, res) => {
@@ -336,7 +421,6 @@ module.exports = {
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
       const alert = { message: alertMessage, status: alertStatus };
-      console.log(toko);
       res.render("admin/toko/view_toko", {
         title: "My Menu | Toko",
         alert,
@@ -374,7 +458,7 @@ module.exports = {
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
       const alert = { message: alertMessage, status: alertStatus };
-      console.log(user);
+      // console.log(user);
       res.render("admin/user/view_user", {
         title: "My Menu | Toko",
         alert,
@@ -494,7 +578,7 @@ module.exports = {
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
       const alert = { message: alertMessage, status: alertStatus };
-      console.log("tax :", pajak);
+      // console.log("tax :", pajak);
       res.render("admin/pajak/view_pajak", {
         title: "My Menu | Pajak",
         alert,

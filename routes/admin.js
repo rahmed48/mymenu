@@ -11,7 +11,6 @@ router.put("/logout", adminController.actionLogout);
 router.get("/dashboard", adminController.viewDashboard);
 
 // ENDPOINT CATEGORY
-
 router.get("/category", adminController.viewCategory);
 router.post("/category", adminController.addCategory);
 router.put("/category", adminController.editCategory);
@@ -42,11 +41,28 @@ router.get("/stok", adminController.viewStok);
 router.delete("/stok/ada/:id", adminController.setStokAda);
 router.delete("/stok/kosong/:id", adminController.setStokKosong);
 
-// ENDPOINT ITEM
+// ENDPOINT DISKON
 router.get("/diskon", adminController.viewDiskon);
 router.post("/diskon", upload, adminController.addDiskon);
 router.put("/diskon", upload, adminController.editDiskon);
 router.delete("/diskon/:id", adminController.deleteDiskon);
+
+// ENDPOINT PROMO
+router.get("/promo", adminController.viewPromo);
+// router.post("/diskon", upload, adminController.addDiskon);
+// router.put("/diskon", upload, adminController.editDiskon);
+// router.delete("/diskon/:id", adminController.deleteDiskon);
+
+//ENDPOINT DETAIL ITEM
+router.get(
+  "/promo/show-detail-promo/:promoId",
+  adminController.viewDetailPromo
+);
+router.post("/promo/add/item/:promoId", adminController.addItemtoPromo);
+router.delete("/promo/:id/item/:itemId", adminController.deleteItemtoPromo);
+// /admin/promo/<%= promo[0].id %>/item/<%= promo[0].itemId[i].id %>
+// router.put("/item/update/feature", upload, adminController.editFeature);
+// router.delete("/item/:itemId/feature/:id", adminController.deleteFeature);
 
 // ENDPOINT HISTORY
 router.get("/histori", adminController.viewOrder);

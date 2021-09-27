@@ -3,6 +3,7 @@ const Toko = require("../models/Toko");
 const Category = require("../models/Category");
 const Order = require("../models/Order");
 const Tax = require("../models/Pajak");
+const Promo = require("../models/Promo");
 
 module.exports = {
   home: async (req, res) => {
@@ -18,10 +19,19 @@ module.exports = {
           path: "diskonId",
           select: "nameDiskon amount",
         });
+      const promo = await Promo.find().populate({
+        path: "itemId",
+        populate: {
+          path: "categoryId",
+        },
+        populate: {
+          path: "diskonId",
+        },
+      });
       const listCategory = await Category.find().select("_id name");
       const order = await Order.find();
-
       res.status(200).json({
+        promo,
         toko,
         allItem,
         listCategory,

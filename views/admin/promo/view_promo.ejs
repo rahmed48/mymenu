@@ -22,10 +22,10 @@
                     <% include ../../partials/message.ejs %> 
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Item</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Promo</h1>
 
 
-                    <% include table_histori %> 
+                    <% include table_promo %> 
                     
 
                 </div>
@@ -50,17 +50,18 @@
     <!-- Logout Modal-->
     <% include ../../partials/logout_modal.ejs %> 
 
+<!--      -->
     <% include ../../partials/js.ejs %> 
 <script>
     $('#dataTable').on('click','.button-update', function() {
         let id = $(this).data('id');
-        let name = $(this).data('name');
-        let harga = $(this).data('harga');
-        // console.log(id + name + harga );
+        let namePromo = $(this).data('namePromo');
+        // let harga = $(this).data('harga');
+        
         $('#editModal').modal('show');
         $('.id').val(id);
-        $('.name').val(name);
-        $('.harga').val(harga);
+        $('.namePromo').val(namePromo);
+        // $('.harga').val(harga);
     })
 </script>
 </body>

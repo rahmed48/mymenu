@@ -1,0 +1,73 @@
+<div
+  class="tab-pane fade show active"
+  id="show-feature"
+  role="tabpanel"
+  aria-labelledby="home-tab"
+>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4 mt-2">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-5">
+          <form action="/admin/promo/add/item/<%= promo[0].id %>" method="POST">
+            <div class="form-group">
+              <label for="name">Item</label>
+              <select class="form-control" name="itemId">
+                <option value="">Pilih Item Yang Akan Di Promo</option>
+                <% for(let i = 0 ; i < item.length ; i++)
+                { %>
+                <option value="<%= item[i].id %>">
+                  <%= item[i].nameItem %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+        <div class="col-md-7">
+          <div class="table-responsive">
+            <table
+              class="table table-bordered"
+              id="dataTable"
+              width="100%"
+              cellspacing="0"
+            >
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Item</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% for(let i = 0; i < promo[0].itemId.length; i++){ %>
+                <tr>
+                  <td><%= i + 1 %></td>
+                  <td><%= promo[0].itemId[i].nameItem %></td>
+                  <!-- copas disini -->
+                  <td>
+                    <!-- /promo/:itemId/activity/:id -->
+                    <form                    
+                      action="/admin/promo/<%= promo[0].id %>/item/<%= promo[0].itemId[i].id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button
+                        type="submit"
+                        class="btn btn-danger btn-circle btn-sm"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
